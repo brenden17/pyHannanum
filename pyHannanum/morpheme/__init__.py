@@ -81,5 +81,5 @@ if __name__ == '__main__':
     sents = u'롯데마트가 판매하고 있는 흑마늘 양념 치킨이 논란이 되고 있다.'
     analyzer = Analyzer(POS_TAGGER)
     for i in  analyzer.filtering_by_tag(sents, tags=['ncpa', 'ncn']):
-        print i
+        print(i)
 
