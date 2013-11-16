@@ -1,8 +1,6 @@
-파이썬 한국어 형태소 분석기 
-======================
-이 패키지는 파이썬에서 형태소 분석을 할 수 있도록 한다.
-
-이를 위해 서울대에서 개발한 자바로 된 형태소 분석기인 한나눔를 사용한다.
+파이썬 한국어 형태소 분석기 (Python Korean POS tagger with Hannanum)
+============================
+이 패키지는 파이썬에서 형태소 분석을 할 수 있도록 자바로 된 형태소 분석기인 한나눔를 바인딩 하였다.
 
 자바 클래스를 접근하기 위해 Pyjnius을 사용한다.
  
@@ -22,7 +20,5 @@ Testing
 --------
 ~~~
 nosetests -v pyHannanum/tests/test_analysis.py
-or
-python -m unittest discover
 ~~~
 
