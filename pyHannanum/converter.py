@@ -9,8 +9,9 @@ if __name__ == '__main__':
     analysis = Analyzer()
     analysis.set_analysis_type(NOUN_EXTRACTOR)
     for line in sys.stdin:
-        s = line.decode('UTF-8')
-        content = s.split('\t')
-        d = analysis.filtering_by_tag(content[2])
-        new_line = '%s\t%s\t%s\n' %(content[0].encode('utf-8'), content[0].encode('utf-8'),' '.join(d))        
-        sys.stdout.write(new_line)
+        if line == '\n' or line.startswith('    '):
+            continue
+        line = line.decode('utf-8')
+        line = analysis.filtering_by_tag(line)
+        sys.stdout.write(' '.join(line))
+        sys.stdout.write('\n')

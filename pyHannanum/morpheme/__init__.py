@@ -26,33 +26,33 @@ class Singleton(type):
 
 class Analyzer(object):
     __metaclass__ = Singleton
-    
+
     def __init__(self, analysis_type=POS_TAGGER):
         assert analysis_type in range(1, 6)
         self.anlysis_type = analysis_type
         self.wf = jwkff.getPredefinedWorkflow(analysis_type)
         self.wf.activateWorkflow(jboolean.TRUE)
-    
+
     def set_analysis_type(self, analysis_type):
-        self.anlysis_type = analysis_type        
+        self.anlysis_type = analysis_type
         self.wf = jwkff.getPredefinedWorkflow(analysis_type)
         self.wf.activateWorkflow(jboolean.TRUE)
-    
+
     def analysis(self, sentences, tags=None, analysis_type=None):
         if analysis_type:
             self.set_analysis_type(analysis_type)
         return self.filtering_by_tag(sentences, tags=None)
-        
+
     def _analysis(self, sentences):
-        try:    
+        try:
             self.wf.analyze(sentences)
         except Exception as e:
             print(e)
         return self.wf.getResultOfDocument()
-    
+
     def preprossing(self, rawresult):
         terms = filter(lambda x: len(x) > 1,
-                       map(string.split, rawresult.split('\n\n')))    
+                       map(string.split, rawresult.split('\n\n')))
         word_taggedwords = []
         for term in terms:
             taggedword = []
@@ -60,19 +60,19 @@ class Analyzer(object):
                 taggedword.extend(r.split('+') if '+' in r else [r])
             word_taggedwords.append((term[0], taggedword))
         return word_taggedwords
-        
+
     def get_taggedwords(self, sentences):
         taggedwords = []
         for word_taggedword in self.preprossing(self._analysis(sentences)):
             taggedwords.extend(word_taggedword[1])
         return taggedwords
-        
+
     def filtering_by_tag(self, sentences, tags=None):
         taggedwords = self.get_taggedwords(sentences)
         if tags:
             return [taggedword.split('/')[0] for taggedword in taggedwords if taggedword.split('/')[1] in tags]
         return [taggedword.split('/')[0] for taggedword in taggedwords]
-    
+
     def get_words(self, sentences):
         word_taggedwords = self.preprossing(self._analysis(sentences))
         return [word_taggedword[0] for word_taggedword in word_taggedwords]

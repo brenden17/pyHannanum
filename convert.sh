@@ -1,2 +1,2 @@
 #! /bin/bash
-python pyHannanum/convert.py < $1 > $2
+python pyHannanum/converter.py < $1 > $2
