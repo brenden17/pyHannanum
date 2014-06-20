@@ -8,10 +8,14 @@ from pyHannanum.morpheme import Analyzer, NOUN_EXTRACTOR
 if __name__ == '__main__':
     analysis = Analyzer()
     analysis.set_analysis_type(NOUN_EXTRACTOR)
+    i = 0
     for line in sys.stdin:
-        if not line.strip():
-            continue    
+        i += 1
+        if i < 4 or not line.strip():
+            continue
+#         if i == 1 or i == 3 or not line.strip():
+#             continue
         line = line.decode('utf-8')
-        line = analysis.filtering_by_tag(line)
-        sys.stdout.write(' '.join(line))
+        words = analysis.filtering_by_tag(line)
+        sys.stdout.write(' '.join(words))
         sys.stdout.write('\n')

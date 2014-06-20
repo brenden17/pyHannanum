@@ -59,6 +59,7 @@ class Analyzer(object):
             for r in term[1:]:
                 taggedword.extend(r.split('+') if '+' in r else [r])
             word_taggedwords.append((term[0], taggedword))
+        #print word_taggedwords
         return word_taggedwords
 
     def get_taggedwords(self, sentences):
@@ -72,6 +73,7 @@ class Analyzer(object):
         if tags:
             return [taggedword.split('/')[0] for taggedword in taggedwords if taggedword.split('/')[1] in tags]
         return [taggedword.split('/')[0] for taggedword in taggedwords]
+
 
     def get_words(self, sentences):
         word_taggedwords = self.preprossing(self._analysis(sentences))
