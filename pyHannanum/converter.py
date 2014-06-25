@@ -10,7 +10,7 @@ if __name__ == '__main__':
     analysis.set_analysis_type(NOUN_EXTRACTOR)
     for line in sys.stdin:
         if not line.strip():
-            continue    
+            continue
         line = line.decode('utf-8')
         line = analysis.filtering_by_tag(line)
         sys.stdout.write(' '.join(line))
